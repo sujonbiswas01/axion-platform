@@ -33,6 +33,7 @@ interface EnvConfig {
     CLOUDINARY_API_KEY: string;
     CLOUDINARY_API_SECRET: string;
   };
+  Email:string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -54,6 +55,7 @@ const loadEnvVariables = (): EnvConfig => {
     "CLOUDINARY_API_SECRET",
     "GITHUB_CLIENT_ID",
     "GITHUB_CLIENT_SECRET",
+    "Email"
   ];
   requireEnvVariable.forEach((variable) => {
     if (!process.env[variable]) {
@@ -92,7 +94,8 @@ const loadEnvVariables = (): EnvConfig => {
       CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string
     },
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID as string,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET as string
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET as string,
+    Email:process.env.Email as string
   };
 };
 

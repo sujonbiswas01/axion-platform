@@ -3,7 +3,6 @@ import AppError from "../../errorHelper/AppError";
 import { IRequestUser } from "../../interface/requestUser.interface";
 import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
-import { logger } from "../../lib/pino";
 import { tokenUtils } from "../../utils/token";
 import {
   IChangePasswordPayload,
@@ -32,7 +31,7 @@ const UserRegister = async (payload: UserCreateInput) => {
       image,
     },
   });
-  logger.debug({ userId: data?.user?.id }, "User registration response received");
+  console.log({ userId: data?.user?.id }, "User registration response received");
   if (!data.user) {
     throw new AppError(400, "User register failed");
   }
@@ -117,47 +116,12 @@ const getMe = async (user: IRequestUser) => {
     where: {
       id: user.userId,
     },
-    include: {
-      products: {
-        include: {
-          reviews: true,
-        },
-      },
-    },
   });
   if (!isUserExists) {
     throw new AppError(status.NOT_FOUND, "User not found");
   }
 
-  const userid = isUserExists.id;
-  const ratings = await prisma.review.groupBy({
-    by: ["productid"],
-    where: {
-      userid: userid,
-      rating: {
-        gt: 0,
-      },
-    },
-    _avg: {
-      rating: true,
-    },
-    _count: {
-      rating: true,
-    },
-  });
-
-  const totalReview = ratings.reduce((sum, r) => sum + r._count.rating, 0);
-
-  const totalRating = ratings.reduce(
-    (sum, r) => sum + (r._avg.rating ?? 0) * r._count.rating,
-    0,
-  );
-  const averageRating = totalReview > 0 ? totalRating / totalReview : 0;
-  return {
-    ...isUserExists,
-    totalReview: totalReview || 0,
-    averageRating: Number(averageRating.toFixed(1)) || 0,
-  };
+  return isUserExists
 };
 
 const changePassword = async (
@@ -253,7 +217,7 @@ const resetPassword = async (
   otp: string,
   newPassword: string,
 ) => {
-  logger.debug({ email }, "Password reset requested");
+  console.log({ email }, "Password reset requested");
   const isUserExist = await prisma.user.findUnique({
     where: {
       email,
