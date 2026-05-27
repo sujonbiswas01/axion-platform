@@ -35,6 +35,7 @@ interface EnvConfig {
   };
   Email:string;
   Password:string;
+  SENTRY_DSN:string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -57,7 +58,8 @@ const loadEnvVariables = (): EnvConfig => {
     "GITHUB_CLIENT_ID",
     "GITHUB_CLIENT_SECRET",
     "Email",
-    "Password"
+    "Password",
+    "SENTRY_DSN"
   ];
   requireEnvVariable.forEach((variable) => {
     if (!process.env[variable]) {
@@ -98,7 +100,8 @@ const loadEnvVariables = (): EnvConfig => {
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID as string,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET as string,
     Email:process.env.Email as string,
-    Password:process.env.Password as string
+    Password:process.env.Password as string,
+    SENTRY_DSN:process.env.SENTRY_DSN as string
   };
 };
 

@@ -5,6 +5,7 @@ import { auth } from "./app/lib/auth";
 import path from "path";
 import pinoHttp from "pino-http";
 import {logger} from './app/lib/pino'
+import { initsentry } from "./app/lib/sentry";
 const app: Application = express();
 app.use('/api/auth',toNodeHandler(auth))
 app.set("view engine", "ejs");
@@ -23,6 +24,9 @@ app.use(
     })
   })
 );
+
+// sentry use
+initsentry();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
