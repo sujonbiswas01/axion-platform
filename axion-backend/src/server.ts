@@ -5,6 +5,7 @@ let server:Server
 const port = 5000
 const bootstrap = async() => {
     try {
+        
         server = app.listen(envVars.PORT, () => {
           console.info("Server started on port 5000");
           console.info(`Server is running on http://localhost:${port}`);
