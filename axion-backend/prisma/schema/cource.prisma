@@ -1,0 +1,16 @@
+model Course {
+  id          String       @id @default(cuid())
+  thumbnail   String
+  title       String
+  description String?      @db.Text
+  instructor  String
+  category    String
+  tags        String[]
+  price       Float        @default(0.0) 
+  duration    String  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relations
+  enrollments Enrollment[]
+}

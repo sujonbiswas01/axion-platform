@@ -1,0 +1,13 @@
+model Resource {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  tags        String[]
+  thumbnail   String
+  pdfFile     String
+  createdAt   DateTime @default(now())
+
+  userId      String
+  user        User @relation(fields: [userId], references: [id])
+  @@index([userId])
+}

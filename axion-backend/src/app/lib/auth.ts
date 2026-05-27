@@ -13,7 +13,7 @@ export const auth = betterAuth({
   }),
   baseURL: `${envVars.FRONTEND_URL}`,
   trustedOrigins: [envVars.FRONTEND_URL],
-  appName: "Planora",
+  appName: "axion",
   user: {
     additionalFields: {
       role: {

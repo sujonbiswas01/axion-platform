@@ -1,0 +1,17 @@
+model Enrollment {
+  id             String           @id @default(cuid())
+  createdAt      DateTime         @default(now())
+  enrollmentDate DateTime         @default(now())
+  status         EnrollmentStatus @default(ACTIVE)
+  paymentInfo    Json?            // Stores metadata like transaction IDs safely
+
+  // Relations & Foreign Keys
+  userId         String           @map("user_id")
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  courseId       String           @map("course_id")
+  course         Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Integrity Guard: Ensures a user can only enroll once per course
+  @@unique([userId, courseId])
+}

@@ -1,0 +1,16 @@
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int   
+  comment   String   @db.Text
+  likes     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  parentId  String?  @map("parent_id")
+  parent    Review?  @relation("ReviewReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Review[] @relation("ReviewReplies")
+  @@index([userId])
+  @@index([parentId])
+}

@@ -8,3 +8,16 @@ enum UserStatus {
   BLOCKED
   DELETED
 }
+
+enum Visibility {
+  PUBLIC
+  UNLISTED
+  PRIVATE
+}
+
+enum EnrollmentStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}

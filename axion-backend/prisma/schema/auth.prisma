@@ -15,6 +15,10 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  videos Video[]
+  resources Resource[]
+   enrollments Enrollment[]
+   reviews Review[]
   @@map("user")
 }
 

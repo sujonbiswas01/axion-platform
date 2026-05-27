@@ -7,7 +7,7 @@ import pinoHttp from "pino-http";
 import {logger} from './app/lib/pino'
 import { initsentry } from "./app/lib/sentry";
 const app: Application = express();
-app.use('/api/auth',toNodeHandler(auth))
+app.use('/api/auth/:path*',toNodeHandler(auth))
 app.set("view engine", "ejs");
 app.set("views",path.resolve(process.cwd(), `src/app/templates`) )
 
