@@ -9,7 +9,7 @@ model Video {
   tags        String[] 
   category    String     
   like        Int @default(0)
-  views       BigInt @default(0)
+  views       Int @default(0)
   visibility  Visibility @default(PUBLIC)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

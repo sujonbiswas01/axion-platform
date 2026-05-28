@@ -1,3 +1,4 @@
+import AppError from "../../errorHelper/AppError"
 import { IRequestUser } from "../../interface/requestUser.interface"
 import { prisma } from "../../lib/prisma"
 import { TVideoValidationPayload } from "./video.interface"
@@ -14,16 +15,43 @@ const CreateVideo =async(payload:TVideoValidationPayload)=>{
 
 const GetAllVideos = async () => {
 
-    const videos = await prisma.video.findMany({
-        include:{
-            user:true,
-            reviews:true
-        }
-    });
-    return videos;
+    try {
+        const videos = await prisma.video.findMany({
+          include: {
+            user: true,
+            reviews: true,
+          },
+        });
+      
+        return videos
+      } catch (error:any) {
+      throw new AppError(400,error.message)
+      }
 };
+
+const GetSingleVideo = async (videoId: string) => {
+    await prisma.video.update({
+      where: { id: videoId },
+      data: {
+        views: {
+          increment: 1,
+        },
+      },
+    });
+  
+    const video = await prisma.video.findUnique({
+      where: { id: videoId },
+      include: {
+        user: true,
+        reviews: true,
+      },
+    });
+  
+    return video;
+  };
 
 export const VideoService={
     CreateVideo,
-    GetAllVideos
+    GetAllVideos,
+    GetSingleVideo
 }

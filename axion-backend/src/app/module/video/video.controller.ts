@@ -39,8 +39,30 @@ const GetAllVideos = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const GetSingleVideo = catchAsync(async (req: Request, res: Response) => {
+    const { videoId } = req.params;
+
+    if (!videoId) {
+        throw new AppError(status.BAD_REQUEST,"Video ID is required");
+    }
+
+    const video = await VideoService.GetSingleVideo(videoId as string);
+
+    if (!video) {
+        throw new AppError(status.NOT_FOUND,"Video not found");
+    }
+
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Video fetched successfully",
+        data: video
+    });
+});
+
 
 export const VIdeoController={
     CreateVideo,
-    GetAllVideos
+    GetAllVideos,
+    GetSingleVideo
 }

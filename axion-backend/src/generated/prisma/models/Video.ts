@@ -33,7 +33,7 @@ export type VideoAvgAggregateOutputType = {
 
 export type VideoSumAggregateOutputType = {
   like: number | null
-  views: bigint | null
+  views: number | null
 }
 
 export type VideoMinAggregateOutputType = {
@@ -44,7 +44,7 @@ export type VideoMinAggregateOutputType = {
   videoFile: string | null
   category: string | null
   like: number | null
-  views: bigint | null
+  views: number | null
   visibility: $Enums.Visibility | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,7 +59,7 @@ export type VideoMaxAggregateOutputType = {
   videoFile: string | null
   category: string | null
   like: number | null
-  views: bigint | null
+  views: number | null
   visibility: $Enums.Visibility | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -236,7 +236,7 @@ export type VideoGroupByOutputType = {
   tags: string[]
   category: string
   like: number
-  views: bigint
+  views: number
   visibility: $Enums.Visibility
   createdAt: Date
   updatedAt: Date
@@ -275,7 +275,7 @@ export type VideoWhereInput = {
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   like?: Prisma.IntFilter<"Video"> | number
-  views?: Prisma.BigIntFilter<"Video"> | bigint | number
+  views?: Prisma.IntFilter<"Video"> | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
@@ -314,7 +314,7 @@ export type VideoWhereUniqueInput = Prisma.AtLeast<{
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   like?: Prisma.IntFilter<"Video"> | number
-  views?: Prisma.BigIntFilter<"Video"> | bigint | number
+  views?: Prisma.IntFilter<"Video"> | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
@@ -356,7 +356,7 @@ export type VideoScalarWhereWithAggregatesInput = {
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringWithAggregatesFilter<"Video"> | string
   like?: Prisma.IntWithAggregatesFilter<"Video"> | number
-  views?: Prisma.BigIntWithAggregatesFilter<"Video"> | bigint | number
+  views?: Prisma.IntWithAggregatesFilter<"Video"> | number
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Video"> | Date | string
@@ -372,7 +372,7 @@ export type VideoCreateInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -389,7 +389,7 @@ export type VideoUncheckedCreateInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -406,7 +406,7 @@ export type VideoUpdateInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,7 +423,7 @@ export type VideoUncheckedUpdateInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -440,7 +440,7 @@ export type VideoCreateManyInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -456,7 +456,7 @@ export type VideoUpdateManyMutationInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -471,7 +471,7 @@ export type VideoUncheckedUpdateManyInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -614,14 +614,6 @@ export type VideoUpdatetagsInput = {
   push?: string | string[]
 }
 
-export type BigIntFieldUpdateOperationsInput = {
-  set?: bigint | number
-  increment?: bigint | number
-  decrement?: bigint | number
-  multiply?: bigint | number
-  divide?: bigint | number
-}
-
 export type EnumVisibilityFieldUpdateOperationsInput = {
   set?: $Enums.Visibility
 }
@@ -635,7 +627,7 @@ export type VideoCreateWithoutUserInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -651,7 +643,7 @@ export type VideoUncheckedCreateWithoutUserInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -696,7 +688,7 @@ export type VideoScalarWhereInput = {
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   like?: Prisma.IntFilter<"Video"> | number
-  views?: Prisma.BigIntFilter<"Video"> | bigint | number
+  views?: Prisma.IntFilter<"Video"> | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
@@ -712,7 +704,7 @@ export type VideoCreateWithoutReviewsInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -728,7 +720,7 @@ export type VideoUncheckedCreateWithoutReviewsInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -760,7 +752,7 @@ export type VideoUpdateWithoutReviewsInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -776,7 +768,7 @@ export type VideoUncheckedUpdateWithoutReviewsInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -792,7 +784,7 @@ export type VideoCreateManyUserInput = {
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   like?: number
-  views?: bigint | number
+  views?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -807,7 +799,7 @@ export type VideoUpdateWithoutUserInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -823,7 +815,7 @@ export type VideoUncheckedUpdateWithoutUserInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -839,7 +831,7 @@ export type VideoUncheckedUpdateManyWithoutUserInput = {
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   like?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  views?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -973,7 +965,7 @@ export type $VideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tags: string[]
     category: string
     like: number
-    views: bigint
+    views: number
     visibility: $Enums.Visibility
     createdAt: Date
     updatedAt: Date
@@ -1411,7 +1403,7 @@ export interface VideoFieldRefs {
   readonly tags: Prisma.FieldRef<"Video", 'String[]'>
   readonly category: Prisma.FieldRef<"Video", 'String'>
   readonly like: Prisma.FieldRef<"Video", 'Int'>
-  readonly views: Prisma.FieldRef<"Video", 'BigInt'>
+  readonly views: Prisma.FieldRef<"Video", 'Int'>
   readonly visibility: Prisma.FieldRef<"Video", 'Visibility'>
   readonly createdAt: Prisma.FieldRef<"Video", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Video", 'DateTime'>
