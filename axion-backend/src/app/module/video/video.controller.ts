@@ -108,11 +108,29 @@ const UpdateVideoLike = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const DeleteVideo = catchAsync(async (req: Request, res: Response) => {
+    const { videoId } = req.params;
+
+    if (!videoId) {
+        throw new AppError(status.BAD_REQUEST, "Video ID is required");
+    }
+
+    const result = await VideoService.DeleteVideo(videoId as string);
+
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Video deleted successfully",
+        data: result
+    });
+});
+
 
 export const VIdeoController={
     CreateVideo,
     GetAllVideos,
     GetSingleVideo,
     UpdateVideo,
-    UpdateVideoLike
+    UpdateVideoLike,
+    DeleteVideo
 }

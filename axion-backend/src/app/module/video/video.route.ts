@@ -36,6 +36,12 @@ router.put(
   VIdeoController.UpdateVideo
 );
 
+router.delete(
+  "/video/:videoId",
+  publicandprivateLimiter,
+  // auth([Role.USER, Role.ADMIN]),
+  VIdeoController.DeleteVideo
+);
 
 
 
