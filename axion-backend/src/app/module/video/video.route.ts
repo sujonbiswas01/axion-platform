@@ -10,7 +10,7 @@ import { multerUpload } from "../../config/multer.config";
 
 const router=Router()
 
-router.post("/video",publicandprivateLimiter,  multerUpload.fields([
+router.post("/video",publicandprivateLimiter, auth([Role.ADMIN,Role.USER]), multerUpload.fields([
     { name: "videoFile", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
   ]),validateRequest(videoValidationSchema),VIdeoController.CreateVideo)
@@ -21,7 +21,7 @@ router.get("/video/:videoId", publicandprivateLimiter, VIdeoController.GetSingle
 router.patch(
     "/video/:videoId/like",
     publicandprivateLimiter,
-    // auth([Role.USER, Role.ADMIN]),
+    auth([Role.USER, Role.ADMIN]),
     VIdeoController.UpdateVideoLike
   );
 
@@ -39,7 +39,7 @@ router.put(
 router.delete(
   "/video/:videoId",
   publicandprivateLimiter,
-  // auth([Role.USER, Role.ADMIN]),
+  auth([Role.USER, Role.ADMIN]),
   VIdeoController.DeleteVideo
 );
 

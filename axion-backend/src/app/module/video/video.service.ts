@@ -3,11 +3,11 @@ import { IRequestUser } from "../../interface/requestUser.interface"
 import { prisma } from "../../lib/prisma"
 import { TUpdateValidationSchema, TVideoValidationPayload } from "./video.interface"
 
-const CreateVideo =async(payload:TVideoValidationPayload)=>{
+const CreateVideo =async(payload:TVideoValidationPayload,user:IRequestUser)=>{
     const result =await prisma.video.create({
         data:{
             ...payload,
-            userId:"bEkaL086yT44p9skdbODh2GMXt2veLKv"
+            userId:user.userId
         }
     })
     return result
@@ -51,10 +51,11 @@ const GetSingleVideo = async (videoId: string) => {
   };
 
 
-const UpdateVideo = async (videoId: string, payload:TUpdateValidationSchema) => {
+const UpdateVideo = async (user:IRequestUser,videoId: string, payload:TUpdateValidationSchema) => {
   try {
     const updatedVideo = await prisma.video.update({
-      where: { id: videoId },
+
+      where: { id: videoId,userId:user.userId },
       data: {
         ...payload,
         updatedAt: new Date(),
@@ -84,11 +85,11 @@ const UpdateVideoLike = async (videoId: string, increment: number = 1) => {
 };
 
 
-const DeleteVideo = async (videoId: string) => {
+const DeleteVideo = async (user:IRequestUser,videoId: string) => {
   try {
 
     const video = await prisma.video.findUnique({
-      where: { id: videoId },
+      where: { id: videoId,userId:user.userId },
     });
 
     if (!video) {

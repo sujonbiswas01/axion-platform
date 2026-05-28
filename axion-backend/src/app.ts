@@ -3,6 +3,7 @@ import express, { Application, Request, Response } from "express";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./app/lib/auth";
 import cors from 'cors'
+import cookieParser from 'cookie-parser' 
 import path from "path";
 import pinoHttp from "pino-http";
 import {logger} from './app/lib/pino'
@@ -15,6 +16,8 @@ app.set("views",path.resolve(process.cwd(), `src/app/templates`) )
 
 app.use(express.urlencoded({ extended: true }));
 
+// middleware
+app.use(cookieParser());
 app.use(
   pinoHttp({
     logger,

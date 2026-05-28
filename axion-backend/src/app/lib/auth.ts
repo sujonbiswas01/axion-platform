@@ -3,7 +3,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { Role, UserStatus } from "../../generated/prisma/enums";
-import { bearer, emailOTP, oAuthProxy } from "better-auth/plugins";
+import { bearer, emailOTP, oAuthProxy, phoneNumber } from "better-auth/plugins";
 import { envVars } from "../config/env";
 
 export const auth = betterAuth({
@@ -112,6 +112,11 @@ export const auth = betterAuth({
       otpLength: 6,
       resendStrategy: "rotate",
     }),
+    phoneNumber({  
+      sendOTP: ({ phoneNumber, code }, ctx) => { 
+          // Implement sending OTP code via SMS
+      } 
+  })
   ],
   socialProviders: {
     google: {

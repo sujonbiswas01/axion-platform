@@ -11,6 +11,7 @@ import { CookieUtils } from "../utils/cookies";
 const auth = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(roles,'roles')
       const sessionToken = CookieUtils.getCookie(req, "better-auth.session_token");
       console.log(sessionToken,'session')
       const accessToken = CookieUtils.getCookie(req, "accessToken");

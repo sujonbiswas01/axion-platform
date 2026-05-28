@@ -6,6 +6,12 @@ import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 
 const CreateVideo=catchAsync(async(req:Request,res:Response)=>{
+    const user = req.user
+    if(!user){
+        throw new AppError(401, "Unauthorized: User authentication required to create a video.");
+   
+    }
+    console.log(user,'user')
     const files = req.files as {
         [fieldname: string]: Express.Multer.File[];
       };
@@ -18,7 +24,7 @@ const CreateVideo=catchAsync(async(req:Request,res:Response)=>{
         thumbnail: thumbnail?.path,
       };
     
-    const result =await VideoService.CreateVideo(payload)
+    const result =await VideoService.CreateVideo(payload,user)
     sendResponse(res,{
         httpStatusCode: status.CREATED,
         success: true,
@@ -62,6 +68,11 @@ const GetSingleVideo = catchAsync(async (req: Request, res: Response) => {
 
 const UpdateVideo = catchAsync(async (req: Request, res: Response) => {
     const { videoId } = req.params;
+    const user = req.user
+    if(!user){
+        throw new AppError(401, "Unauthorized: User authentication required to create a video.");
+   
+    }
 
     if (!videoId) {
         throw new AppError(status.BAD_REQUEST, "Video ID is required");
@@ -78,7 +89,7 @@ const UpdateVideo = catchAsync(async (req: Request, res: Response) => {
         thumbnail: thumbnail?.path,
       };
 
-    const updatedVideo = await VideoService.UpdateVideo(videoId as string, payload);
+    const updatedVideo = await VideoService.UpdateVideo(user,videoId as string, payload);
 
     sendResponse(res, {
         httpStatusCode: status.OK,
@@ -110,12 +121,17 @@ const UpdateVideoLike = catchAsync(async (req: Request, res: Response) => {
 
 const DeleteVideo = catchAsync(async (req: Request, res: Response) => {
     const { videoId } = req.params;
+    const user = req.user
+    if(!user){
+        throw new AppError(401, "Unauthorized: User authentication required to create a video.");
+   
+    }
 
     if (!videoId) {
         throw new AppError(status.BAD_REQUEST, "Video ID is required");
     }
 
-    const result = await VideoService.DeleteVideo(videoId as string);
+    const result = await VideoService.DeleteVideo(user,videoId as string);
 
     sendResponse(res, {
         httpStatusCode: status.OK,
