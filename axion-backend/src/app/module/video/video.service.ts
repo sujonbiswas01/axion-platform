@@ -1,7 +1,7 @@
 import AppError from "../../errorHelper/AppError"
 import { IRequestUser } from "../../interface/requestUser.interface"
 import { prisma } from "../../lib/prisma"
-import { TVideoValidationPayload } from "./video.interface"
+import { TUpdateValidationSchema, TVideoValidationPayload } from "./video.interface"
 
 const CreateVideo =async(payload:TVideoValidationPayload)=>{
     const result =await prisma.video.create({
@@ -50,8 +50,46 @@ const GetSingleVideo = async (videoId: string) => {
     return video;
   };
 
+
+const UpdateVideo = async (videoId: string, payload:TUpdateValidationSchema) => {
+  try {
+    const updatedVideo = await prisma.video.update({
+      where: { id: videoId },
+      data: {
+        ...payload,
+        updatedAt: new Date(),
+      },
+    });
+    return updatedVideo;
+  } catch (error: any) {
+    throw new AppError(400, error.message);
+  }
+};
+
+const UpdateVideoLike = async (videoId: string, increment: number = 1) => {
+  try {
+    const updatedVideo = await prisma.video.update({
+      where: { id: videoId },
+      data: {
+        like: {
+          increment: increment,
+        },
+        updatedAt: new Date(),
+      },
+    });
+    return updatedVideo;
+  } catch (error: any) {
+    throw new AppError(400, error.message);
+  }
+};
+
+
+
+
 export const VideoService={
     CreateVideo,
     GetAllVideos,
-    GetSingleVideo
+    GetSingleVideo,
+    UpdateVideo,
+    UpdateVideoLike
 }

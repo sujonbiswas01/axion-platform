@@ -28,3 +28,30 @@ export const videoValidationSchema = z.object({
     .default('PUBLIC'),
 });
 
+
+
+export const UpdateValidationSchema = z.object({
+  title: z
+    .string()
+    .optional(),
+    
+  description: z
+    .string()
+    .trim()
+    .optional(),
+    
+  thumbnail: z.any().optional(),
+    
+  videoFile: z.any().optional(),
+    
+  tags: z
+    .array(z.string().trim())
+    .optional(),
+    
+  category: z.string().optional(),
+    
+  visibility: z
+    .enum(['PUBLIC', 'UNLISTED', 'PRIVATE'])
+    .default('PUBLIC')
+    .optional(),
+});

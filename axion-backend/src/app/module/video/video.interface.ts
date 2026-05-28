@@ -1,4 +1,6 @@
 import z from "zod";
-import { videoValidationSchema } from "./video.validation";
+import { UpdateValidationSchema, videoValidationSchema } from "./video.validation";
 
 export type TVideoValidationPayload = z.infer<typeof videoValidationSchema>;
+
+export type TUpdateValidationSchema = z.infer<typeof UpdateValidationSchema>;
