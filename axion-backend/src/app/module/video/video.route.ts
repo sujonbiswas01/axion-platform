@@ -15,4 +15,6 @@ router.post("/video",publicandprivateLimiter,  multerUpload.fields([
     { name: "thumbnail", maxCount: 1 },
   ]),validateRequest(videoValidationSchema),VIdeoController.CreateVideo)
 
+router.get("/videos",publicandprivateLimiter,VIdeoController.GetAllVideos)
+
 export const VideoRouter=router

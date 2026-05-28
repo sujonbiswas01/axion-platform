@@ -1234,6 +1234,7 @@ export const ReviewScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
+  videoId: 'videoId',
   parentId: 'parentId'
 } as const
 
@@ -1248,6 +1249,8 @@ export const VideoScalarFieldEnum = {
   videoFile: 'videoFile',
   tags: 'tags',
   category: 'category',
+  like: 'like',
+  views: 'views',
   visibility: 'visibility',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -1420,6 +1423,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 

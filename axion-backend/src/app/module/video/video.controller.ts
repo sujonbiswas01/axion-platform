@@ -29,6 +29,18 @@ const CreateVideo=catchAsync(async(req:Request,res:Response)=>{
 
 })
 
+const GetAllVideos = catchAsync(async (req: Request, res: Response) => {
+    const videos = await VideoService.GetAllVideos();
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Videos fetched successfully",
+        data: videos
+    });
+});
+
+
 export const VIdeoController={
-    CreateVideo
+    CreateVideo,
+    GetAllVideos
 }

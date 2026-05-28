@@ -12,6 +12,18 @@ const CreateVideo =async(payload:TVideoValidationPayload)=>{
     return result
 }
 
+const GetAllVideos = async () => {
+
+    const videos = await prisma.video.findMany({
+        include:{
+            user:true,
+            reviews:true
+        }
+    });
+    return videos;
+};
+
 export const VideoService={
-    CreateVideo
+    CreateVideo,
+    GetAllVideos
 }

@@ -195,6 +195,7 @@ export const ReviewScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
+  videoId: 'videoId',
   parentId: 'parentId'
 } as const
 
@@ -209,6 +210,8 @@ export const VideoScalarFieldEnum = {
   videoFile: 'videoFile',
   tags: 'tags',
   category: 'category',
+  like: 'like',
+  views: 'views',
   visibility: 'visibility',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

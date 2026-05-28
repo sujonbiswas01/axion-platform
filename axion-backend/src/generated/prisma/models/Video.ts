@@ -20,8 +20,20 @@ export type VideoModel = runtime.Types.Result.DefaultSelection<Prisma.$VideoPayl
 
 export type AggregateVideo = {
   _count: VideoCountAggregateOutputType | null
+  _avg: VideoAvgAggregateOutputType | null
+  _sum: VideoSumAggregateOutputType | null
   _min: VideoMinAggregateOutputType | null
   _max: VideoMaxAggregateOutputType | null
+}
+
+export type VideoAvgAggregateOutputType = {
+  like: number | null
+  views: number | null
+}
+
+export type VideoSumAggregateOutputType = {
+  like: number | null
+  views: bigint | null
 }
 
 export type VideoMinAggregateOutputType = {
@@ -31,6 +43,8 @@ export type VideoMinAggregateOutputType = {
   thumbnail: string | null
   videoFile: string | null
   category: string | null
+  like: number | null
+  views: bigint | null
   visibility: $Enums.Visibility | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -44,6 +58,8 @@ export type VideoMaxAggregateOutputType = {
   thumbnail: string | null
   videoFile: string | null
   category: string | null
+  like: number | null
+  views: bigint | null
   visibility: $Enums.Visibility | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -58,6 +74,8 @@ export type VideoCountAggregateOutputType = {
   videoFile: number
   tags: number
   category: number
+  like: number
+  views: number
   visibility: number
   createdAt: number
   updatedAt: number
@@ -66,6 +84,16 @@ export type VideoCountAggregateOutputType = {
 }
 
 
+export type VideoAvgAggregateInputType = {
+  like?: true
+  views?: true
+}
+
+export type VideoSumAggregateInputType = {
+  like?: true
+  views?: true
+}
+
 export type VideoMinAggregateInputType = {
   id?: true
   title?: true
@@ -73,6 +101,8 @@ export type VideoMinAggregateInputType = {
   thumbnail?: true
   videoFile?: true
   category?: true
+  like?: true
+  views?: true
   visibility?: true
   createdAt?: true
   updatedAt?: true
@@ -86,6 +116,8 @@ export type VideoMaxAggregateInputType = {
   thumbnail?: true
   videoFile?: true
   category?: true
+  like?: true
+  views?: true
   visibility?: true
   createdAt?: true
   updatedAt?: true
@@ -100,6 +132,8 @@ export type VideoCountAggregateInputType = {
   videoFile?: true
   tags?: true
   category?: true
+  like?: true
+  views?: true
   visibility?: true
   createdAt?: true
   updatedAt?: true
@@ -145,6 +179,18 @@ export type VideoAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: VideoAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: VideoSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: VideoMinAggregateInputType
@@ -175,6 +221,8 @@ export type VideoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: VideoCountAggregateInputType | true
+  _avg?: VideoAvgAggregateInputType
+  _sum?: VideoSumAggregateInputType
   _min?: VideoMinAggregateInputType
   _max?: VideoMaxAggregateInputType
 }
@@ -187,11 +235,15 @@ export type VideoGroupByOutputType = {
   videoFile: string | null
   tags: string[]
   category: string
+  like: number
+  views: bigint
   visibility: $Enums.Visibility
   createdAt: Date
   updatedAt: Date
   userId: string
   _count: VideoCountAggregateOutputType | null
+  _avg: VideoAvgAggregateOutputType | null
+  _sum: VideoSumAggregateOutputType | null
   _min: VideoMinAggregateOutputType | null
   _max: VideoMaxAggregateOutputType | null
 }
@@ -222,11 +274,14 @@ export type VideoWhereInput = {
   videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
+  like?: Prisma.IntFilter<"Video"> | number
+  views?: Prisma.BigIntFilter<"Video"> | bigint | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   userId?: Prisma.StringFilter<"Video"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type VideoOrderByWithRelationInput = {
@@ -237,11 +292,14 @@ export type VideoOrderByWithRelationInput = {
   videoFile?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type VideoWhereUniqueInput = Prisma.AtLeast<{
@@ -255,11 +313,14 @@ export type VideoWhereUniqueInput = Prisma.AtLeast<{
   videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
+  like?: Prisma.IntFilter<"Video"> | number
+  views?: Prisma.BigIntFilter<"Video"> | bigint | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   userId?: Prisma.StringFilter<"Video"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id">
 
 export type VideoOrderByWithAggregationInput = {
@@ -270,13 +331,17 @@ export type VideoOrderByWithAggregationInput = {
   videoFile?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.VideoCountOrderByAggregateInput
+  _avg?: Prisma.VideoAvgOrderByAggregateInput
   _max?: Prisma.VideoMaxOrderByAggregateInput
   _min?: Prisma.VideoMinOrderByAggregateInput
+  _sum?: Prisma.VideoSumOrderByAggregateInput
 }
 
 export type VideoScalarWhereWithAggregatesInput = {
@@ -290,6 +355,8 @@ export type VideoScalarWhereWithAggregatesInput = {
   videoFile?: Prisma.StringNullableWithAggregatesFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringWithAggregatesFilter<"Video"> | string
+  like?: Prisma.IntWithAggregatesFilter<"Video"> | number
+  views?: Prisma.BigIntWithAggregatesFilter<"Video"> | bigint | number
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Video"> | Date | string
@@ -304,10 +371,13 @@ export type VideoCreateInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutVideosInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutVideoInput
 }
 
 export type VideoUncheckedCreateInput = {
@@ -318,10 +388,13 @@ export type VideoUncheckedCreateInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutVideoInput
 }
 
 export type VideoUpdateInput = {
@@ -332,10 +405,13 @@ export type VideoUpdateInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutVideosNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutVideoNestedInput
 }
 
 export type VideoUncheckedUpdateInput = {
@@ -346,10 +422,13 @@ export type VideoUncheckedUpdateInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutVideoNestedInput
 }
 
 export type VideoCreateManyInput = {
@@ -360,6 +439,8 @@ export type VideoCreateManyInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -374,6 +455,8 @@ export type VideoUpdateManyMutationInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -387,6 +470,8 @@ export type VideoUncheckedUpdateManyInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -403,6 +488,11 @@ export type VideoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type VideoScalarRelationFilter = {
+  is?: Prisma.VideoWhereInput
+  isNot?: Prisma.VideoWhereInput
+}
+
 export type VideoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -411,10 +501,17 @@ export type VideoCountOrderByAggregateInput = {
   videoFile?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type VideoAvgOrderByAggregateInput = {
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
 }
 
 export type VideoMaxOrderByAggregateInput = {
@@ -424,6 +521,8 @@ export type VideoMaxOrderByAggregateInput = {
   thumbnail?: Prisma.SortOrder
   videoFile?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -437,10 +536,17 @@ export type VideoMinOrderByAggregateInput = {
   thumbnail?: Prisma.SortOrder
   videoFile?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type VideoSumOrderByAggregateInput = {
+  like?: Prisma.SortOrder
+  views?: Prisma.SortOrder
 }
 
 export type VideoCreateNestedManyWithoutUserInput = {
@@ -485,6 +591,20 @@ export type VideoUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.VideoScalarWhereInput | Prisma.VideoScalarWhereInput[]
 }
 
+export type VideoCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.VideoCreateWithoutReviewsInput, Prisma.VideoUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.VideoCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.VideoWhereUniqueInput
+}
+
+export type VideoUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.VideoCreateWithoutReviewsInput, Prisma.VideoUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.VideoCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.VideoUpsertWithoutReviewsInput
+  connect?: Prisma.VideoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VideoUpdateToOneWithWhereWithoutReviewsInput, Prisma.VideoUpdateWithoutReviewsInput>, Prisma.VideoUncheckedUpdateWithoutReviewsInput>
+}
+
 export type VideoCreatetagsInput = {
   set: string[]
 }
@@ -492,6 +612,14 @@ export type VideoCreatetagsInput = {
 export type VideoUpdatetagsInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type BigIntFieldUpdateOperationsInput = {
+  set?: bigint | number
+  increment?: bigint | number
+  decrement?: bigint | number
+  multiply?: bigint | number
+  divide?: bigint | number
 }
 
 export type EnumVisibilityFieldUpdateOperationsInput = {
@@ -506,9 +634,12 @@ export type VideoCreateWithoutUserInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewCreateNestedManyWithoutVideoInput
 }
 
 export type VideoUncheckedCreateWithoutUserInput = {
@@ -519,9 +650,12 @@ export type VideoUncheckedCreateWithoutUserInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutVideoInput
 }
 
 export type VideoCreateOrConnectWithoutUserInput = {
@@ -561,10 +695,92 @@ export type VideoScalarWhereInput = {
   videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
+  like?: Prisma.IntFilter<"Video"> | number
+  views?: Prisma.BigIntFilter<"Video"> | bigint | number
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
   createdAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Video"> | Date | string
   userId?: Prisma.StringFilter<"Video"> | string
+}
+
+export type VideoCreateWithoutReviewsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  thumbnail?: string | null
+  videoFile?: string | null
+  tags?: Prisma.VideoCreatetagsInput | string[]
+  category: string
+  like?: number
+  views?: bigint | number
+  visibility?: $Enums.Visibility
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutVideosInput
+}
+
+export type VideoUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  thumbnail?: string | null
+  videoFile?: string | null
+  tags?: Prisma.VideoCreatetagsInput | string[]
+  category: string
+  like?: number
+  views?: bigint | number
+  visibility?: $Enums.Visibility
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId: string
+}
+
+export type VideoCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.VideoWhereUniqueInput
+  create: Prisma.XOR<Prisma.VideoCreateWithoutReviewsInput, Prisma.VideoUncheckedCreateWithoutReviewsInput>
+}
+
+export type VideoUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.VideoUpdateWithoutReviewsInput, Prisma.VideoUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.VideoCreateWithoutReviewsInput, Prisma.VideoUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.VideoWhereInput
+}
+
+export type VideoUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.VideoWhereInput
+  data: Prisma.XOR<Prisma.VideoUpdateWithoutReviewsInput, Prisma.VideoUncheckedUpdateWithoutReviewsInput>
+}
+
+export type VideoUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.VideoUpdatetagsInput | string[]
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutVideosNestedInput
+}
+
+export type VideoUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.VideoUpdatetagsInput | string[]
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type VideoCreateManyUserInput = {
@@ -575,6 +791,8 @@ export type VideoCreateManyUserInput = {
   videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
+  like?: number
+  views?: bigint | number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -588,9 +806,12 @@ export type VideoUpdateWithoutUserInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUpdateManyWithoutVideoNestedInput
 }
 
 export type VideoUncheckedUpdateWithoutUserInput = {
@@ -601,9 +822,12 @@ export type VideoUncheckedUpdateWithoutUserInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutVideoNestedInput
 }
 
 export type VideoUncheckedUpdateManyWithoutUserInput = {
@@ -614,11 +838,42 @@ export type VideoUncheckedUpdateManyWithoutUserInput = {
   videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
+  like?: Prisma.IntFieldUpdateOperationsInput | number
+  views?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type VideoCountOutputType
+ */
+
+export type VideoCountOutputType = {
+  reviews: number
+}
+
+export type VideoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviews?: boolean | VideoCountOutputTypeCountReviewsArgs
+}
+
+/**
+ * VideoCountOutputType without action
+ */
+export type VideoCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VideoCountOutputType
+   */
+  select?: Prisma.VideoCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * VideoCountOutputType without action
+ */
+export type VideoCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
 
 
 export type VideoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -629,11 +884,15 @@ export type VideoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   videoFile?: boolean
   tags?: boolean
   category?: boolean
+  like?: boolean
+  views?: boolean
   visibility?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reviews?: boolean | Prisma.Video$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.VideoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["video"]>
 
 export type VideoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -644,6 +903,8 @@ export type VideoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   videoFile?: boolean
   tags?: boolean
   category?: boolean
+  like?: boolean
+  views?: boolean
   visibility?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -659,6 +920,8 @@ export type VideoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   videoFile?: boolean
   tags?: boolean
   category?: boolean
+  like?: boolean
+  views?: boolean
   visibility?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -674,15 +937,19 @@ export type VideoSelectScalar = {
   videoFile?: boolean
   tags?: boolean
   category?: boolean
+  like?: boolean
+  views?: boolean
   visibility?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type VideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "videoFile" | "tags" | "category" | "visibility" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["video"]>
+export type VideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "thumbnail" | "videoFile" | "tags" | "category" | "like" | "views" | "visibility" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["video"]>
 export type VideoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reviews?: boolean | Prisma.Video$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.VideoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VideoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -695,6 +962,7 @@ export type $VideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Video"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -704,6 +972,8 @@ export type $VideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     videoFile: string | null
     tags: string[]
     category: string
+    like: number
+    views: bigint
     visibility: $Enums.Visibility
     createdAt: Date
     updatedAt: Date
@@ -1103,6 +1373,7 @@ readonly fields: VideoFieldRefs;
 export interface Prisma__VideoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reviews<T extends Prisma.Video$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Video$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1139,6 +1410,8 @@ export interface VideoFieldRefs {
   readonly videoFile: Prisma.FieldRef<"Video", 'String'>
   readonly tags: Prisma.FieldRef<"Video", 'String[]'>
   readonly category: Prisma.FieldRef<"Video", 'String'>
+  readonly like: Prisma.FieldRef<"Video", 'Int'>
+  readonly views: Prisma.FieldRef<"Video", 'BigInt'>
   readonly visibility: Prisma.FieldRef<"Video", 'Visibility'>
   readonly createdAt: Prisma.FieldRef<"Video", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Video", 'DateTime'>
@@ -1541,6 +1814,30 @@ export type VideoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Videos to delete.
    */
   limit?: number
+}
+
+/**
+ * Video.reviews
+ */
+export type Video$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**
