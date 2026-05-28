@@ -106,6 +106,17 @@ const DeleteVideo = async (user:IRequestUser,videoId: string) => {
   }
 };
 
+const GetMyVideos = async (user: IRequestUser) => {
+  try {
+    const videos = await prisma.video.findMany({
+      where: { userId: user.userId },
+      orderBy: { createdAt: 'desc' }
+    });
+    return videos;
+  } catch (error: any) {
+    throw new AppError(400, error.message);
+  }
+};
 
 
 export const VideoService={
@@ -114,5 +125,6 @@ export const VideoService={
     GetSingleVideo,
     UpdateVideo,
     UpdateVideoLike,
-    DeleteVideo
+    DeleteVideo,
+    GetMyVideos
 }

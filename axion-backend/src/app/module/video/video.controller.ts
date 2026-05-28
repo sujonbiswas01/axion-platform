@@ -141,6 +141,22 @@ const DeleteVideo = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const GetMyVideos = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) {
+        throw new AppError(401, "Unauthorized: User authentication required to get your videos.");
+    }
+
+    const videos = await VideoService.GetMyVideos(user);
+
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Fetched user's videos successfully",
+        data: videos
+    });
+});
+
 
 export const VIdeoController={
     CreateVideo,
@@ -148,5 +164,6 @@ export const VIdeoController={
     GetSingleVideo,
     UpdateVideo,
     UpdateVideoLike,
-    DeleteVideo
+    DeleteVideo,
+    GetMyVideos
 }

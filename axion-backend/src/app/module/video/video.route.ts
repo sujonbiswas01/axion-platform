@@ -43,6 +43,13 @@ router.delete(
   VIdeoController.DeleteVideo
 );
 
+router.get(
+  "/my-videos",
+  publicandprivateLimiter,
+  auth([Role.USER, Role.ADMIN]),
+  VIdeoController.GetMyVideos
+);
+
 
 
 export const VideoRouter=router
