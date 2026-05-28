@@ -18,6 +18,13 @@ router.post("/video",publicandprivateLimiter,  multerUpload.fields([
 router.get("/videos",publicandprivateLimiter,VIdeoController.GetAllVideos)
 router.get("/video/:videoId", publicandprivateLimiter, VIdeoController.GetSingleVideo)
 
+router.patch(
+    "/video/:videoId/like",
+    publicandprivateLimiter,
+    // auth([Role.USER, Role.ADMIN]),
+    VIdeoController.UpdateVideoLike
+  );
+
 router.put(
   "/video/:videoId",
   publicandprivateLimiter,
@@ -29,12 +36,7 @@ router.put(
   VIdeoController.UpdateVideo
 );
 
-router.post(
-  "/video/:videoId/like",
-  publicandprivateLimiter,
-  auth([Role.USER, Role.ADMIN]),
-  VIdeoController.UpdateVideoLike
-);
+
 
 
 export const VideoRouter=router

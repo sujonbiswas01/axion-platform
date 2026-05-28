@@ -90,13 +90,12 @@ const UpdateVideo = catchAsync(async (req: Request, res: Response) => {
 
 const UpdateVideoLike = catchAsync(async (req: Request, res: Response) => {
     const { videoId } = req.params;
-    const { increment } = req.body; // Optional, can specify how much to increment by
-
+    const { increment } = req.body;
     if (!videoId) {
         throw new AppError(status.BAD_REQUEST, "Video ID is required");
     }
 
-    // Default increment is 1, but can accept other values if needed
+
     const incrementValue = typeof increment === "number" ? increment : 1;
 
     const updatedVideo = await VideoService.UpdateVideoLike(videoId as string, incrementValue);
