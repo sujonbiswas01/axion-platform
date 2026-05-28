@@ -4,8 +4,8 @@ model Video {
   id          String     @id @default(uuid())
   title       String     @db.VarChar(100)
   description String?    @db.Text
-  thumbnail   String     
-  videoFile   String     
+  thumbnail   String?    
+  videoFile   String?   
   tags        String[] 
   category    String     
   visibility  Visibility @default(PUBLIC)

@@ -183,8 +183,8 @@ export type VideoGroupByOutputType = {
   id: string
   title: string
   description: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail: string | null
+  videoFile: string | null
   tags: string[]
   category: string
   visibility: $Enums.Visibility
@@ -218,8 +218,8 @@ export type VideoWhereInput = {
   id?: Prisma.StringFilter<"Video"> | string
   title?: Prisma.StringFilter<"Video"> | string
   description?: Prisma.StringNullableFilter<"Video"> | string | null
-  thumbnail?: Prisma.StringFilter<"Video"> | string
-  videoFile?: Prisma.StringFilter<"Video"> | string
+  thumbnail?: Prisma.StringNullableFilter<"Video"> | string | null
+  videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
@@ -233,8 +233,8 @@ export type VideoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  thumbnail?: Prisma.SortOrder
-  videoFile?: Prisma.SortOrder
+  thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoFile?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -251,8 +251,8 @@ export type VideoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.VideoWhereInput | Prisma.VideoWhereInput[]
   title?: Prisma.StringFilter<"Video"> | string
   description?: Prisma.StringNullableFilter<"Video"> | string | null
-  thumbnail?: Prisma.StringFilter<"Video"> | string
-  videoFile?: Prisma.StringFilter<"Video"> | string
+  thumbnail?: Prisma.StringNullableFilter<"Video"> | string | null
+  videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
@@ -266,8 +266,8 @@ export type VideoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  thumbnail?: Prisma.SortOrder
-  videoFile?: Prisma.SortOrder
+  thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoFile?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
@@ -286,8 +286,8 @@ export type VideoScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Video"> | string
   title?: Prisma.StringWithAggregatesFilter<"Video"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Video"> | string | null
-  thumbnail?: Prisma.StringWithAggregatesFilter<"Video"> | string
-  videoFile?: Prisma.StringWithAggregatesFilter<"Video"> | string
+  thumbnail?: Prisma.StringNullableWithAggregatesFilter<"Video"> | string | null
+  videoFile?: Prisma.StringNullableWithAggregatesFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringWithAggregatesFilter<"Video"> | string
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"Video"> | $Enums.Visibility
@@ -300,8 +300,8 @@ export type VideoCreateInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -314,8 +314,8 @@ export type VideoUncheckedCreateInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -328,8 +328,8 @@ export type VideoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -342,8 +342,8 @@ export type VideoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -356,8 +356,8 @@ export type VideoCreateManyInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -370,8 +370,8 @@ export type VideoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -383,8 +383,8 @@ export type VideoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -502,8 +502,8 @@ export type VideoCreateWithoutUserInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -515,8 +515,8 @@ export type VideoUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -557,8 +557,8 @@ export type VideoScalarWhereInput = {
   id?: Prisma.StringFilter<"Video"> | string
   title?: Prisma.StringFilter<"Video"> | string
   description?: Prisma.StringNullableFilter<"Video"> | string | null
-  thumbnail?: Prisma.StringFilter<"Video"> | string
-  videoFile?: Prisma.StringFilter<"Video"> | string
+  thumbnail?: Prisma.StringNullableFilter<"Video"> | string | null
+  videoFile?: Prisma.StringNullableFilter<"Video"> | string | null
   tags?: Prisma.StringNullableListFilter<"Video">
   category?: Prisma.StringFilter<"Video"> | string
   visibility?: Prisma.EnumVisibilityFilter<"Video"> | $Enums.Visibility
@@ -571,8 +571,8 @@ export type VideoCreateManyUserInput = {
   id?: string
   title: string
   description?: string | null
-  thumbnail: string
-  videoFile: string
+  thumbnail?: string | null
+  videoFile?: string | null
   tags?: Prisma.VideoCreatetagsInput | string[]
   category: string
   visibility?: $Enums.Visibility
@@ -584,8 +584,8 @@ export type VideoUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -597,8 +597,8 @@ export type VideoUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -610,8 +610,8 @@ export type VideoUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnail?: Prisma.StringFieldUpdateOperationsInput | string
-  videoFile?: Prisma.StringFieldUpdateOperationsInput | string
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.VideoUpdatetagsInput | string[]
   category?: Prisma.StringFieldUpdateOperationsInput | string
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
@@ -700,8 +700,8 @@ export type $VideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     title: string
     description: string | null
-    thumbnail: string
-    videoFile: string
+    thumbnail: string | null
+    videoFile: string | null
     tags: string[]
     category: string
     visibility: $Enums.Visibility

@@ -3,6 +3,7 @@ import z from "zod";
 
 export const validateRequest = (zodSchema: z.ZodObject) => {
     return (req: Request, res: Response, next: NextFunction) => {
+        console.log(req.file,'file')
         if (req.body?.data) {
             try {
                 req.body = JSON.parse(req.body.data);

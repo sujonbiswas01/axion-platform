@@ -33,6 +33,9 @@ const UserRegister = catchAsync(async (req: Request, res: Response) => {
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const result = await AuthService.loginUser(payload);
+  console.log(
+    payload,'payload'
+  )
 
   const { accessToken, refreshToken, token } = result;
   tokenUtils.setAccessTokenCookie(res, accessToken);

@@ -12,6 +12,7 @@ const auth = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const sessionToken = CookieUtils.getCookie(req, "better-auth.session_token");
+      console.log(sessionToken,'session')
       const accessToken = CookieUtils.getCookie(req, "accessToken");
       let isAuthenticated = false;
       if (sessionToken) {
@@ -82,6 +83,7 @@ const auth = (roles: string[]) => {
       next();
 
     } catch (error: any) {
+      console.log(error,'message')
       throw new AppError(error.statusCode || status.BAD_REQUEST, error.message);
     }
   };
