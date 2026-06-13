@@ -5,6 +5,7 @@ import { TCreateResourcePayload } from "./resource.interface";
 import { catchAsync } from "../../shared/catchAsync";
 import AppError from "../../errorHelper/AppError";
 import { ResouceService } from "./resource.service";
+import paginationSortingHelper from "../../helpers/Pagination";
 
 const CreateResource = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
@@ -36,6 +37,68 @@ const CreateResource = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const GetAllResource = catchAsync(async (req: Request, res: Response) => {
+  const { page, limit, skip, sortBy, sortOrder } = paginationSortingHelper(
+    req.query,
+  );
+  const { search } = req.query;
+  console.log(search,'search')
+  const resources = await ResouceService.GetAllResource(req.query,
+    page,
+    limit,
+    skip,
+    sortBy,
+    sortOrder,
+    search);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Resources fetched successfully",
+    data: resources,
+  });
+});
+
+const GetSingleResource = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    throw new AppError(400, "Resource ID is required.");
+  }
+
+  const resource = await ResouceService.GetSingleResource(id as string)
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Resource fetched successfully",
+    data: resource,
+  });
+});
+
+const DeleteResource = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    throw new AppError(400, "Resource ID is required.");
+  }
+
+  const user=req.user
+  if(!user){
+    throw new AppError(401,"you are unauthorized user,please at first login this website")
+  }
+
+  const result =await ResouceService.DeleteResource(id as string,user.userId as string);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Resource deleted successfully",
+    data: result,
+  });
+});
+
+
+
 export const ResourceController = {
   CreateResource,
+  GetAllResource,
+  GetSingleResource,
+  DeleteResource
 };
